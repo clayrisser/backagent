@@ -10,3 +10,4 @@ exports.session = require('./session');
 exports.views = require('./views');
 exports.web = require('./web');
 exports.swagger = require('./swagger');
+exports.blogdown = require('./blogdown');

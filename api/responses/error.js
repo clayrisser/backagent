@@ -25,7 +25,8 @@ module.exports = function(err, verbose) {
         }
       }
     }
+  } else {
+    log.error(err);
   }
-  log.error(err);
   return this.status(code).json({message: err.message});
 };

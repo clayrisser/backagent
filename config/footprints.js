@@ -34,18 +34,18 @@ module.exports = {
     },
 
     actions: {
-      create: true,
-      find: true,
-      update: true,
-      destroy: true,
+      create: false,
+      find: false,
+      update: false,
+      destroy: false,
 
       /**
        * Specify which "association" endpoints to activate.
        */
-      createAssociation: true,
-      findAssociation: true,
-      updateAssociation: true,
-      destroyAssociation: true
+      createAssociation: false,
+      findAssociation: false,
+      updateAssociation: false,
+      destroyAssociation: false
     }
   },
 

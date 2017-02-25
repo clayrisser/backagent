@@ -27,5 +27,14 @@ module.exports = [
     method: [ 'GET' ],
     path: '/api/v1/default/info',
     handler: 'DefaultController.info'
+  },
+
+  /**
+   * Handles one way sync
+   */
+  {
+    method: 'GET',
+    path: '/api/v1/sync/{system}',
+    handler: 'SyncController.sync'
   }
 ];

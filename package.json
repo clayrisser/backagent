@@ -1,0 +1,52 @@
+{
+  "name": "trails-imo",
+  "version": "0.0.0",
+  "description": "IMO the perfect trails setup",
+  "homepage": "https://github.com/jamrizzi/trails-imo",
+  "author": {
+    "name": "Jam Risser",
+    "email": "jam@jamrizzi.com",
+    "url": "jam.jamrizzi.com"
+  },
+  "main": "index.js",
+  "keywords": [
+    "express",
+    "waterline",
+    "footprints",
+    "swagger",
+    "trails",
+    "trailsjs"
+  ],
+  "dependencies": {
+    "err": "^2.1.5",
+    "express": "^5.0.0-alpha.2",
+    "express-custom-response": "^0.1.1",
+    "lodash": "^4.17.4",
+    "trailpack-express": "^2.0.3",
+    "trailpack-footprints": "^2.0.0",
+    "trailpack-repl": "v2-latest",
+    "trailpack-router": "v2-latest",
+    "trailpack-swagger": "git+https://github.com/jamrizzi/trailpack-swagger.git",
+    "trailpack-waterline": "^2.0.0-rc2",
+    "trails": "v2-latest",
+    "winston": "^2.3"
+  },
+  "devDependencies": {
+    "eslint": "^2.11",
+    "eslint-config-trails": "^2",
+    "mocha": "^2.5",
+    "supertest": "^1.2"
+  },
+  "scripts": {
+    "test": "eslint . && mocha",
+    "start": "nodemon server.js"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "eslintConfig": {
+    "extends": "trails"
+  },
+  "repository": "jamrizzi/trails-imo",
+  "license": "MIT"
+}

@@ -13,13 +13,13 @@ const e = process.env;
 
 module.exports = {
 
-  contentPath: e.CONTENT_PATH ? e.CONTENT_PATH : `${e.HOME}/blogdown/content`,
+  contentPath: e.CONTENT_PATH ? e.CONTENT_PATH : '../content',
 
   sync: {
     git: {
-      username: e.GIT_USERNAME ? e.GIT_USERNAME : 'jamrizzi',
-      password: e.GIT_PASSWORD ? e.GIT_PASSWORD : 'password',
-      repo: e.GIT_REPO ? e.GIT_REPO : 'https://github.com/thingdown/blogdown.git',
+      username: e.GIT_USERNAME ? e.GIT_USERNAME : '',
+      password: e.GIT_PASSWORD ? e.GIT_PASSWORD : '',
+      repo: e.GIT_REPO ? e.GIT_REPO : '',
       branch: e.GIT_BRANCH ? e.GIT_BRANCH : 'origin/master'
     }
   }

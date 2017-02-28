@@ -13,7 +13,7 @@ const e = process.env;
 
 module.exports = {
 
-  contentPath: e.CONTENT_PATH ? e.CONTENT_PATH : '../content',
+  contentPath: e.CONTENT_PATH ? e.CONTENT_PATH : './content',
 
   sync: {
     git: {

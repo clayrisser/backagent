@@ -15,7 +15,7 @@ module.exports = class SyncController extends Controller {
       urlParams: [ 'system' ]
     }).then(message => {
       return s.SyncService.sync(req.params.system).then(data => {
-        res.success(data, data.commit + ' was ' + data.task);
+        res.success(data);
       });
     }).catch(err => res.error(err));
   }

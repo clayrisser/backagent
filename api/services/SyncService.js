@@ -2,8 +2,9 @@
 
 const Service = require('trails/service');
 const Err = require('err');
-const git = require('nodegit');
 const _ = require('lodash');
+const simpleGit = require('simple-git');
+const fs = require('extfs');
 
 /**
  * @module SyncService
@@ -24,29 +25,23 @@ module.exports = class SyncService extends Service {
 
   _gitSync() {
     const blogdown = this.app.config.blogdown;
-    return git.Clone(blogdown.sync.git.repo, blogdown.contentPath).then(repo => {
-      return {
-        repo: repo,
-        task: 'cloned'
-      };
-    }).catch(err => {
-      var message = err.message;
-      if (message.substr(message.length - 36, message.length) === 'exists and is not an empty directory') {
-        return git.Repository.open(blogdown.contentPath).then(repo => {
-          return {
-            repo: repo,
-            task: 'pulled'
-          };
-        });
-      }
-      throw err;
-    }).then(d => {
-      return d.repo.mergeBranches('master', blogdown.sync.git.branch).then(repo => {
-        return {
-          commit: repo,
-          task: d.task
-        };
+    const git = blogdown.sync.git;
+    return new Promise((resolve, reject) => {
+      fs.isEmpty(blogdown.contentPath, (empty) => {
+        if (empty) {
+          simpleGit(blogdown.contentPath.match(/.+(?=\/)/g)[0]).clone(git.repo, blogdown.contentPath, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+          });
+        } else {
+          simpleGit(blogdown.contentPath).pull('origin', 'master', (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+          });
+        }
       });
+    }).then(result => {
+      return result;
     });
   }
 };

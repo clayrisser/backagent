@@ -6,13 +6,13 @@ all: fetch_dependancies build sweep push
 .PHONY: build
 build:
 	# docker pull jamrizzi/deputy
-	docker build -t jamrizzi/deputy:latest -f $(CWD)/Dockerfile $(CWD)
+	docker build -t thingdown/deputy:latest -f $(CWD)/Dockerfile $(CWD)
 	$(info built myproject)
 
 .PHONY: push
 push:
-	docker push jamrizzi/deputy:latest
-	$(info pushed jamrizzi/deputy:latest)
+	docker push thingdown/deputy:latest
+	$(info pushed thingdown/deputy:latest)
 
 .PHONY: clean
 clean: sweep bleach

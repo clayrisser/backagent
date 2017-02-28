@@ -28,7 +28,7 @@
     "trailpack-footprints": "^2.0.0",
     "trailpack-repl": "v2-latest",
     "trailpack-router": "v2-latest",
-    "trailpack-swagger": "git+https://github.com/jamrizzi/trailpack-swagger.git",
+    "trailpack-swagger": "^2.0.3",
     "trailpack-waterline": "^2.0.0-rc2",
     "trails": "v2-latest",
     "winston": "^2.3"

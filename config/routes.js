@@ -24,7 +24,7 @@ module.exports = [
    * Constrain the DefaultController.info handler to accept only GET requests.
    */
   {
-    method: [ 'GET' ],
+    method: 'GET',
     path: '/api/v1/default/info',
     handler: 'DefaultController.info'
   },
@@ -33,7 +33,7 @@ module.exports = [
    * Handles one way sync
    */
   {
-    method: 'GET',
+    method: [ 'GET', 'POST' ],
     path: '/api/v1/sync/{system}',
     handler: 'SyncController.sync'
   }

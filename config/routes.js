@@ -33,7 +33,7 @@ module.exports = [
    * Handles one way sync
    */
   {
-    method: [ 'GET', 'POST' ],
+    method: 'POST',
     path: '/api/v1/sync/{system}',
     handler: 'SyncController.sync'
   }

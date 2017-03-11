@@ -24,6 +24,8 @@ module.exports = function(err, verbose) {
           }
         }
       }
+    } else {
+      code = 500;
     }
   } else {
     log.error(err);

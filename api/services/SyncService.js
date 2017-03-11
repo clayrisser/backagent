@@ -27,16 +27,24 @@ module.exports = class SyncService extends Service {
     const blogdown = this.app.config.blogdown;
     const git = blogdown.sync.git;
     return new Promise((resolve, reject) => {
-      fs.isEmpty(blogdown.contentPath, (empty) => {
-        if (empty) {
-          simpleGit(blogdown.contentPath.match(/.+(?=\/)/g)[0]).clone(git.repo, blogdown.contentPath, (err, result) => {
+      fs.isEmpty(blogdown.contentPath, function(empty) {
+        resolve(!empty);
+      });
+    }).then((exists) => {
+      return new Promise((resolve, reject) => {
+        let exec = require('child_process').exec;
+        if (exists) { // pull
+          exec(`git pull origin ${git.branch}`, (err, stdout) => {
             if (err) reject(err);
-            resolve(result);
+            resolve('Successfully pulled');
           });
-        } else {
-          simpleGit(blogdown.contentPath).pull('origin', 'master', (err, result) => {
+        } else { // clone
+          exec(`git clone ${git.repo} ${blogdown.contentPath}`, (err, stdout) => {
             if (err) reject(err);
-            resolve(result);
+            exec(`git checkout ${git.branch}`, (err, stdout) => {
+              if (err) reject(err);
+              resolve('Successfully cloned');
+            });
           });
         }
       });

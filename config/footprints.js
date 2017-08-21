@@ -1,18 +1,13 @@
-/**
- * Footprints Configuration
- * (config.footprints)
- *
- * Footprints are routes that are auto-generated from your model and controller
- * definitions in api/controllers and api/models.
- *
- * @see http://trailsjs.io/doc/config/footprints
- */
-module.exports = {
+import _ from 'lodash';
+
+const controllerNames = _.keys(require('../api/controllers'));
+
+export default {
 
   /**
    * Generate routes for controller handlers.
    */
-  controllers: false,
+  controllers: { ignore: controllerNames },
 
   /**
    * Generate conventional Create, Read, Update, and Delete (CRUD) routes for
@@ -30,7 +25,7 @@ module.exports = {
       /**
        * Whether to populate all model associations by default (for "find")
        */
-      populate: true
+      populate: false
     },
 
     actions: {

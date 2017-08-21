@@ -1,12 +1,4 @@
-/**
- * Views Configuration
- * (app.config.views)
- *
- * @see http://trailsjs.io/doc/config/views.js
- */
+export default {
 
-'use strict';
-
-module.exports = {
-
+  engine: 'ejs'
 };

@@ -1,34 +1,24 @@
-/**
- * api/responses/error.js
- *
- * Handles error in a clean way
- */
-
-var _ = require('lodash');
-var log = require('../../config/log').logger;
+import { logger as log } from '../../config/log';
+import access from 'safe-access';
 
 module.exports = function(err, verbose) {
-  var code = 500;
+  let code = 500;
+  const statusCode = access(err, 'output.statusCode');
   verbose = false;
-  if (err.code) {
-    code = Number(err.code);
-    if (100 <= code && code < 600) {
-      if (code >= 500) {
-        log.error(err);
-      } else {
-        if (process.env.NODE_ENV !== 'production') {
-          if (verbose) {
-            log.warn(err);
-          } else {
-            log.warn(err.message);
-          }
-        }
-      }
-    } else {
-      code = 500;
-    }
-  } else {
+  if (statusCode && (100 <= statusCode && statusCode < 600)) code = Number(statusCode);
+  log.transports.console.label = code;
+  if (code >= 500) {
     log.error(err);
+  } else {
+    if (process.env.NODE_ENV !== 'production') {
+      if (verbose) {
+        log.warn(err);
+      } else {
+        log.warn(err.message);
+      }
+    }
   }
-  return this.status(code).json({message: err.message});
+  const response = { message: err.message };
+  if (err.data) response.payload = err.data;
+  return this.status(code).json(response);
 };

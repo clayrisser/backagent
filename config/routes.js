@@ -1,40 +1,74 @@
-/**
- * Routes Configuration
- * (trails.config.routes)
- *
- * Configure how routes map to views and controllers.
- *
- * @see http://trailsjs.io/doc/config/routes.js
- */
-
-'use strict';
-
-module.exports = [
-
+export default [
   /**
-   * Render the HelloWorld view
+   * Default Routes
    */
   {
     method: 'GET',
     path: '/',
-    handler: 'ViewController.helloWorld'
+    handler: 'DefaultController.api'
   },
-
-  /**
-   * Constrain the DefaultController.info handler to accept only GET requests.
-   */
   {
     method: 'GET',
-    path: '/api/v1/default/info',
-    handler: 'DefaultController.info'
+    path: '/api',
+    handler: 'DefaultController.api'
+  },
+  {
+    method: 'GET',
+    path: '/api/v1',
+    handler: 'DefaultController.v1'
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/info',
+    handler: 'DefaultController.info',
+    config: {
+      plugins: {
+        swagger: {
+          description: 'Return some info about this application'
+        }
+      }
+    }
   },
 
   /**
-   * Handles one way sync
+   * Auth Routes
    */
   {
     method: 'POST',
-    path: '/api/v1/sync/{system}',
-    handler: 'SyncController.sync'
+    path: '/api/v1/auth/register',
+    handler: 'AuthController.register'
+  },
+
+  {
+    method: 'GET',
+    path: '/api/v1/auth/login',
+    handler: 'AuthController.login'
+  },
+
+  {
+    method: 'GET',
+    path: '/api/v1/auth/provider/{provider}',
+    handler: 'AuthController.provider'
+  },
+
+  {
+    method: 'GET',
+    path: '/api/v1/auth/callback/{provider}',
+    handler: 'AuthController.callback'
+  },
+
+  {
+    method: 'GET',
+    path: '/api/v1/auth/get-token',
+    handler: 'AuthController.getToken'
+  },
+
+  /**
+   *
+   */
+  {
+    method: 'GET',
+    path: '/api/v1/agent/git/sync',
+    handler: 'AgentController.gitSync'
   }
 ];

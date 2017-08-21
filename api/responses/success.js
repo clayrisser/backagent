@@ -1,10 +1,4 @@
-/**
-  * api/responses/success.js
-  *
-  * Handles success in a clean way
- */
-
-var _ = require('lodash');
+import _ from 'lodash';
 
 module.exports = function(data, message) {
   if (!message) {

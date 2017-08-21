@@ -1,14 +1,6 @@
-'use strict';
+import bodyParser from 'body-parser';
 
-/**
- * Server Configuration
- * (app.config.web)
- *
- * Configure the Web Server
- *
- * @see {@link http://trailsjs.io/doc/config/web}
- */
-module.exports = {
+export default {
   express: require('express'),
 
   /**
@@ -21,36 +13,38 @@ module.exports = {
   /**
    * Init method, can be used to customize express instance
    */
-  //init: (trailsApp, expressApp) => {},
+  init: (app, expressApp) => {
+    app.services.PassportService.init();
+    app.log.info('app started');
+  },
 
   /**
    * Middlewares to load (in order)
    */
   middlewares: {
 
-    /*
-    //middlewares loading order
     order: [
-     'addMethods',
-     'cookieParser',
-     'session',
-     'bodyParser',
-     'compression',
-     'methodOverride',
-     'www',
-     'router',
-     '404',
-     '500'
-    ]*/
+      'addMethods',
+      'cookieParser',
+      'session',
+      'bodyParser',
+      'compression',
+      'methodOverride',
+      'www',
+      'router',
+      '404',
+      'errorHandler'
+    ],
 
-    /**
-     * Middlewares to load for body parsing
     bodyParser: [
       bodyParser.json(),
       bodyParser.urlencoded({extended: false})
-    ]
-     */
+    ],
 
+    errorHandler(err, req, res, next) {
+      if (err) return res.error(err);
+      return res.error(new Error('Unknown error'));
+    }
   },
 
   /***************************************************************************
@@ -73,7 +67,7 @@ module.exports = {
   /**
    * The port to bind the web server to
    */
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 6602,
 
   /**
    * The host to bind the web server to

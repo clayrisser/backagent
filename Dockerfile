@@ -1,29 +1,36 @@
-############################################################
-# Dockerfile to run deputy
-# Based on Ubuntu
-############################################################
+#############################################
+# Dockerfile to run trailblazer
+# Based on Alpine
+#############################################
 
-FROM node:latest
+FROM node:7.8-alpine
 
 MAINTAINER Jam Risser (jamrizzi)
 
-EXPOSE 3000
+ENV MONGO_HOST=db
+ENV MONGO_PORT=27017
+ENV MONGO_DATABASE=blogagent
+ENV NODE_ENV=production
+ENV GIT_ORIGIN=https://github.com/thingdown/blogdown-theme-docs.git
+ENV GIT_BRANCH=master
+ENV BLOGDOWN_LOCATION=/data/blogdown
 
-ENV NODE_ENV production
-ENV CONTENT_PATH /content
-ENV GIT_REPO ""
-ENV GIT_BRANCH origin/master
-ENV TINI_VERSION v0.14.0
+EXPOSE 6602
 
 WORKDIR /app/
 
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
-RUN chmod +x /bin/tini
+RUN apk add --no-cache \
+        tini && \
+    apk add --no-cache --virtual build-deps \
+        git && \
+    npm install -g eslint
 
-COPY ./package.json /app/package.json
+COPY ./package.json /app/
 RUN npm install
 COPY ./ /app/
-RUN chmod -R 700 /app/
+RUN npm test && \
+    apk del build-deps && \
+    npm uninstall -g eslint && \
+    npm prune --production
 
-ENTRYPOINT ["tini", "--"]
-CMD ["node", "server.js"]
+ENTRYPOINT ["/sbin/tini", "--", "node", "/app/node_modules/babel-cli/bin/babel-node", "/app/server.js"]

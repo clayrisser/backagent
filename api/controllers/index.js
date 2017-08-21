@@ -1,5 +1,3 @@
-'use strict';
-
-exports.DefaultController = require('./DefaultController');
-exports.ViewController = require('./ViewController');
-exports.SyncController = require('./SyncController');
+export const AgentController = require('./AgentController').default;
+export const AuthController = require('./AuthController').default;
+export const DefaultController = require('./DefaultController').default;

@@ -1,7 +1,7 @@
 {
-  "name": "trails-imo",
+  "name": "trailblazer",
   "version": "0.0.0",
-  "description": "IMO the perfect trails setup",
+  "description": "A pragmatic implementation of TrailsJS for rapid development",
   "homepage": "https://github.com/jamrizzi/trails-imo",
   "author": {
     "name": "Jam Risser",
@@ -18,30 +18,55 @@
     "trailsjs"
   ],
   "dependencies": {
-    "check-params": "^0.2.0",
-    "err": "^2.1.5",
+    "babel-cli": "^6.24.1",
+    "babel-preset-node6": "^11.0.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "bcrypt-nodejs": "^0.0.3",
+    "boom": "^5.2.0",
+    "change-case": "^3.0.1",
+    "ejs": "^2.5.6",
     "express": "^5.0.0-alpha.2",
     "express-custom-response": "^0.1.1",
-    "extfs": "0.0.7",
+    "express-validator": "^3.2.1",
+    "fs-extra-promise": "^1.0.1",
+    "homedir": "^0.6.0",
+    "jwt-simple": "^0.5.1",
     "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "nodegit": "^0.20.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-github2": "^0.1.10",
+    "passport-jwt": "^2.2.1",
+    "passport-local": "^1.0.0",
+    "safe-access": "^0.1.0",
+    "sails-mongo": "^0.12.2",
     "trailpack-express": "^2.0.3",
     "trailpack-footprints": "^2.0.0",
     "trailpack-repl": "v2-latest",
     "trailpack-router": "v2-latest",
-    "trailpack-swagger": "^2.0.3",
+    "trailpack-swagger": "git+https://github.com/jamrizzi/trailpack-swagger.git",
     "trailpack-waterline": "^2.0.0-rc2",
-    "trails": "v2-latest",
+    "trails": "^2.0.2",
     "winston": "^2.3"
   },
   "devDependencies": {
     "eslint": "^2.11",
-    "eslint-config-trails": "^2",
+    "eslint-config-trails": "git+https://github.com/jamrizzi/eslint-config-trails.git",
     "mocha": "^2.5",
+    "nodemon": "^1.11.0",
     "supertest": "^1.2"
   },
   "scripts": {
-    "test": "eslint . && mocha",
-    "start": "nodemon server.js"
+    "test": "node ./node_modules/mocha/bin/mocha --compilers js:babel-core/register",
+    "start": "node ./node_modules/nodemon/bin/nodemon -e js -x 'npm run lint && node ./node_modules/babel-cli/bin/babel-node server.js || exit 1'",
+    "build": "docker build -t jamrizzi/trailblazer:latest -f ./Dockerfile .",
+    "push": "docker push -t jamrizzi/trailblazer:latest",
+    "run": "docker run --name some-trailblazer --rm --link some-mongo:db -p 3000:3000 jamrizzi/trailblazer:latest",
+    "ssh": "docker run --name some-trailblazer --rm -it --execute /bin/sh jamrizzi/trailblaser:latest",
+    "essh": "docker exec -it some-trailblazer /bin/sh",
+    "data": "docker run --name some-mongo --rm -p 27017:27017 mongo:latest",
+    "lint": "node ./node_modules/eslint/bin/eslint ."
   },
   "engines": {
     "node": ">= 4.0.0"
@@ -50,5 +75,11 @@
     "extends": "trails"
   },
   "repository": "jamrizzi/trails-imo",
-  "license": "MIT"
+  "license": "MIT",
+  "babel": {
+    "presets": [
+      "node6",
+      "stage-2"
+    ]
+  }
 }

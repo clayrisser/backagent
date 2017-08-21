@@ -1,15 +1,6 @@
-/**
- * Trailpack Configuration
- * (app.config.main)
- *
- * @see http://trailsjs.io/doc/config/main
- */
+import path from 'path';
 
-'use strict';
-
-const path = require('path');
-
-module.exports = {
+export default {
 
   /**
    * Order does *not* matter. Each module is loaded according to its own
@@ -30,5 +21,7 @@ module.exports = {
   paths: {
     root: path.resolve(__dirname, '..'),
     temp: path.resolve(__dirname, '..', '.tmp')
-  }
+  },
+
+  jwtSecret: 'hello-jwt'
 };

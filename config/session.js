@@ -1,10 +1,8 @@
-'use strict';
-
-module.exports = {
+export default {
   /**
    * Secret use by express for his session
    */
-  secret: null,
+  secret: 'hello-world',
 
   /**
    * Store use by express for saving his session

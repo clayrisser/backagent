@@ -3,7 +3,7 @@
 # Based on Alpine
 #############################################
 
-FROM node:7.8-alpine
+FROM node:8-alpine
 
 MAINTAINER Jam Risser (jamrizzi)
 
